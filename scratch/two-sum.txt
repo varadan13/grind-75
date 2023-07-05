@@ -1,0 +1,13 @@
+(defn two-sum [nums target]
+  (loop [indices-map {}
+         remaining-nums (map-indexed vector nums)]
+    (if (empty? remaining-nums)
+      (throw (IllegalArgumentException. "No two numbers in the list add up to the target"))
+      (let [[index num] (first remaining-nums)
+            complement (- target num)]
+        (if (contains? indices-map complement)
+          [index (indices-map complement)]
+          (recur (assoc indices-map num index) (rest remaining-nums))))))
+
+(let [[index1 index2] (two-sum [2 7 11 15] 9)]
+  (println [index1 index2]))
